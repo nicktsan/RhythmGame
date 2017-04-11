@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 [System.Serializable]
 public class Song
@@ -17,9 +18,10 @@ public class SongScrollList : MonoBehaviour
     public Transform contentPanel;
     public Text selectedSong;
     public SimpleObjectPool buttonObjectPool;
+    public string gameDirectory = Directory.GetCurrentDirectory();
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         fillList();
         RefreshDisplay();
@@ -35,8 +37,10 @@ public class SongScrollList : MonoBehaviour
     {
         try
         {
-            string wavpath = @"D:\Homework\CSC475\rhythm_game\Rhythm_Game\Assets\Audio\";
-            string[] dirs = Directory.GetFiles(wavpath, "*.wav");
+            string wavpath = gameDirectory + @"\Assets\Audio\";
+            string[] dirs = Directory.GetFiles(wavpath, "*.wav")
+                                     .Select(Path.GetFileName)
+                                     .ToArray();
             foreach (string dir in dirs)
             {
                 Song newSong = new Song();

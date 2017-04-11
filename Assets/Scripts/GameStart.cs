@@ -11,7 +11,7 @@ public class GameStart : MonoBehaviour {
 
     //Sonic annotator directory: D:\Homework\CSC475\rhythm_game\Rhythm_Game\sonic-annotator-1.4-win32\release
     // run melodia with sonic annotator: sonic-annotator.exe -d vamp:mtg-melodia:melodia:melody C:\audio\song.wav -w csv
-    string gameDirectory = Directory.GetCurrentDirectory();
+    public string gameDirectory = Directory.GetCurrentDirectory();
     public Text currSong;
     public List<double> freq;
     public List<double> time;
@@ -40,8 +40,8 @@ public class GameStart : MonoBehaviour {
 
     public void CSVtoArray()
     {
-        string fname = Path.GetFileNameWithoutExtension(currSong.text) + "_vamp_mtg-melodia_melodia_melody.csv";
-        string csvpath = @"D:\Homework\CSC475\rhythm_game\RhythmGame\Assets\Audio\" + fname;
+        string fname = Path.GetFileNameWithoutExtension(gameDirectory + @"\Assets\Audio\" + currSong.text) + "_vamp_mtg-melodia_melodia_melody.csv";
+        string csvpath = gameDirectory + @"\Assets\Audio\" + fname;
         freq = new List<double>();
         time = new List<double>();
         StreamReader sr = new StreamReader(csvpath);
@@ -52,6 +52,6 @@ public class GameStart : MonoBehaviour {
             freq.Add(double.Parse(values[0]));
             time.Add(double.Parse(values[1]));
         }
-        print(freq[900]);
+        //print(freq[900]);
     }
 }
